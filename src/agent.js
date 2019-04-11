@@ -13,8 +13,8 @@ const requests = {
 };
 
 const weather = {
-  load: (payload = 101020100) =>
-    requests.get(`http://t.weather.sojson.com/api/weather/city/${payload}`)
+  load: (payload = '上海') =>
+    requests.get(`https://www.apiopen.top/weatherApi?city=${payload}`)
 };
 
 const poem = {
