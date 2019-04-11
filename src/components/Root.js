@@ -1,20 +1,13 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Widget from './Widget';
-import {
-  Container,
-  InputGroup,
-  FormControl,
-  Row,
-  Col,
-  Image
-} from 'react-bootstrap';
-import MyNavbar from './MyNavbar';
-import './root.css';
-import moment from 'moment';
-import { searchEngines } from '../reducers/appReducer';
-import baiduIcon from './icons/baidu.svg';
-import googleIcon from './icons/google.svg';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import Widget from './Widget'
+import { Col, Container, FormControl, InputGroup, Row } from 'react-bootstrap'
+import MyNavbar from './MyNavbar'
+import './root.css'
+import moment from 'moment'
+import { searchEngines } from '../reducers/appReducer'
+import baiduIcon from './icons/baidu.svg'
+import googleIcon from './icons/google.svg'
 
 const Icon = {
   baidu: baiduIcon,
