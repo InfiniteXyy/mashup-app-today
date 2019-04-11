@@ -1,0 +1,15 @@
+.music-table td {
+  border: none;
+}
+
+.music-table thead th {
+  border-bottom: 1px solid #eeeeee !important;
+}
+
+th {
+  border-top: none !important;
+}
+
+.music-table {
+  display: block !important;
+}

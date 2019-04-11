@@ -13,17 +13,17 @@ const requests = {
 };
 
 const weather = {
-  load: (cityId = 101030100) =>
-    requests.get(`http://t.weather.sojson.com/api/weather/city/${cityId}`)
+  load: (payload = 101020100) =>
+    requests.get(`http://t.weather.sojson.com/api/weather/city/${payload}`)
 };
 
-const job = {
-  load: (description, location) =>
-    requests.get(
-      `https://jobs.github.com/positions.json?description=${encode(
-        description
-      )}&location=${encode(location)}`
-    )
+const poem = {
+  load: () => requests.get('https://api.apiopen.top/recommendPoetry')
 };
 
-export { weather, job };
+const music = {
+  load: () => requests.get('https://api.apiopen.top/musicRankings')
+};
+
+const agent = { weather, poem, music };
+export default agent;

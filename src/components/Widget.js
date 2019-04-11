@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'react-bootstrap';
-import { loadWeather, loadJob } from '../reducers/widgetReducer';
-
+import { loadWidget } from '../reducers/widgetReducer';
+import './widget.css';
+import Loading from './Loading';
+import Weather from './widgets/Weather';
+import Poem from './widgets/Poem';
+import Music from './widgets/Music';
 class Widget extends Component {
   state = {
     open: true
@@ -10,57 +14,47 @@ class Widget extends Component {
 
   componentDidMount() {
     let { type } = this.props;
-    if (type === 'weather') {
-      this.props.loadWeather();
-    }
-    if (type === 'job') {
-      this.props.loadJob();
-    }
+    this.props.loadWidget(type);
   }
   render() {
-    let { data, type } = this.props;
+    let { data, type, loading } = this.props;
     let content;
     switch (type) {
-      case 'job':
-        let { job } = data;
-        content = job && (
-          <li>
-            <ul>title：{job[0].title}</ul>
-            <ul>type：{job[0].content}</ul>
-          </li>
-        );
+      case 'poem':
+        let { poem } = data;
+        content = poem && <Poem poem={poem} />;
+        break;
+      case 'music':
+        let { music } = data;
+        content = music && <Music music={music} />;
         break;
       case 'weather':
-      default:
         let { weather } = data;
-        content = weather && (
-          <li>
-            <ul>{weather.cityInfo.city}</ul>
-            <ul>温度：{weather.data.wendu}°C</ul>
-            <ul>湿度：{weather.data.shidu}</ul>
-            <ul>PM2.5：{weather.data.pm25}°C</ul>
-            <ul>PM10：{weather.data.pm10}°C</ul>
-            <ul>建议：{weather.data.ganmao}</ul>
-          </li>
-        );
+        content = weather && <Weather weather={weather} />;
+        break;
+      default:
+        content = <div />;
         break;
     }
     return (
-      <Card style={{ width: 300 }}>
-        <Card.Title>{this.props.type}</Card.Title>
-        <Card.Body>{content}</Card.Body>
+      <Card style={{ marginTop: 20, minWidth: 300 }}>
+        {loading.indexOf(type) !== -1 ? (
+          <Loading />
+        ) : (
+          <Card.Body>{content}</Card.Body>
+        )}
       </Card>
     );
   }
 }
 
 const mapStateToProps = ({ widgetReducer }) => ({
-  data: widgetReducer.data
+  data: widgetReducer.data,
+  loading: widgetReducer.loading
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadWeather: cityId => dispatch(loadWeather(cityId)),
-  loadJob: () => dispatch(loadJob())
+  loadWidget: (title, payload) => dispatch(loadWidget(title, payload))
 });
 
 export default connect(
